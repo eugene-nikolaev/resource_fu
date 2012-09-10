@@ -9,11 +9,11 @@
 #       post.user == user
 #     end
 #
-#     can :read do |post|
+#     can :read do |post, accessor|
 #       post.user == accessor || post.public?
 #     end
 #
-#     can :edit do
+#     can :edit do |resource, accessor, options|
 #       resource.is_editable?(accessor)
 #     end
 #
