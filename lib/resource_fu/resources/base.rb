@@ -2,7 +2,7 @@
 #
 # Example:
 #
-# class TestService < ResourceFu::Services::Base
+# class TestService < ResourceFu::Resources::Base
 #   
 #   authorize Post
 #     can :update, :destroy do |post, user, options|
