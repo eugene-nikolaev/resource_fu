@@ -35,7 +35,7 @@ module ResourceFu::Resources
           if actions[action].is_a?(Proc)
             actions[action].call(resource_or_class_or_symbol, accessor, options)
           else
-            actions[action].new({as: accessor}.merge(options)).allowed?(action)
+            actions[action][:class_name].new({as: accessor}.merge(options)).allowed?(action)
           end
         end
         
