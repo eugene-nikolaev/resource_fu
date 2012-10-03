@@ -7,3 +7,4 @@ module ResourceFu
   end
 end
 require_relative 'resource_fu/resources/base'
+require_relative 'resource_fu/authorizations/base'
