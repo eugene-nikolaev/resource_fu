@@ -13,28 +13,14 @@ describe ResourceFu::Resources::Base do
   end
 
   class TestResource < ResourceFu::Resources::Base
-    authorize Resource do
-      can :create do |resource, user, options|
-        resource.user == user
-      end
-
-      can :destroy do |resource, user, options|
-        resource.user == user
-      end
-    end
-
-    action :read do |id|
+    describe_resource :read do |id|
       id
     end
 
-    action :create do |params, options = 22|
+    describe_resource :create do |params, options = 22|
       resource :default do
         options
       end
-    end
-
-    action :destroy do |user|
-      authorize!(:destroy, Resource.new(user))
     end
   end
 
@@ -45,8 +31,8 @@ describe ResourceFu::Resources::Base do
 
   it { should respond_to(:read) }
   it { should respond_to(:create) }
-  its(:read) { should be_kind_of(ResourceFu::Resources::Extensions::Resourceable::Resource) }
-  its(:create) { should be_kind_of(ResourceFu::Resources::Extensions::Resourceable::Resource) }
+  its(:read) { should be_kind_of(ResourceFu::Resources::Resource) }
+  its(:create) { should be_kind_of(ResourceFu::Resources::Resource) }
 
   describe "#resource assignment" do
     subject { TestResource.new.create(11) }
@@ -55,22 +41,5 @@ describe ResourceFu::Resources::Base do
     it "should have correct resource" do
       subject.resource(:default).should == 22
     end
-  end
-
-  describe "Authorization" do
-    subject { TestResource.new(as: user_1) }
-
-    it "should raise authorization error for unauthorized user" do
-      lambda {
-        subject.destroy(user_2)
-      }.should raise_error
-    end
-
-    it "should raise authorization error for authorized user" do
-      lambda {
-        subject.destroy(user_1)
-      }.should_not raise_error
-    end
-    
   end
 end
