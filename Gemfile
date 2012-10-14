@@ -7,7 +7,5 @@ gemspec
 
 group :test do
   gem 'activesupport'
-  gem 'debugger'
   gem 'rspec'
-  gem 'rspec-rails'
 end
